@@ -34,8 +34,8 @@ void play(Board& b) {
       std::cout << "thats no valid position. Position has to be in range 0-7. \n";
       continue;
     } else if (b.isEmpty(piece)) {
-      //std::cout << "theres no piece\n";
-      //continue;
+      std::cout << "theres no piece\n";
+      continue;
     } else if (b.pieceAt(piece)->color!=whosTurn) {
       std::cout << "thats your opponents piece\n";
       continue;
