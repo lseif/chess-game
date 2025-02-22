@@ -64,18 +64,9 @@ void play(Board& b) {
 
 int main() { //vector to safe positions and move back
   tests();
-  //error (0,1) (0,3)
-  Board b = kingCheckPosition();
+  Board b = startPosition();
   play(b);
-  /*std::cout << b.show();
-  showPossibleMoves(b.pieceAt(Pos(0,7))->possibleMoves());
-
-  std::cout << b.show() << "\n";
-  b.showPossibleMoves(*b.pieceAt(Pos(0, 1)));
-  Move move = Move(*b.pieceAt(Pos(0, 1)), Pos(2,2));
-  b.ruledMove(move);
-  std::cout << b.show() << "\n";
-  */
+ 
   return 0;
 }
 

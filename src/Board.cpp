@@ -227,6 +227,7 @@ void Board::showPossibleMoves(const Piece& piece) {
   std::array<std::vector<Pos>, NUMBEROFDIRECTIONS> v = possibleMovesWithNoPieceInWay(piece);
   for(int i = 0; i< NUMBEROFDIRECTIONS; i++) {
     for (Pos pair : v[i]) {
+      std::cout << pair.show() << "\n";
   }
   }
 }
@@ -350,7 +351,7 @@ bool Board::isEmpty(const Pos& position) {
 }
 
 bool isMovePossible(const std::array<std::vector<Pos>, NUMBEROFDIRECTIONS>& possibleMoves, const Pos& move) {
-  bool isPossible;
+  bool isPossible = false;
   for(int i = 0; i<NUMBEROFDIRECTIONS; i++) {
     if (possibleMoves[i].empty()) {
       continue;
