@@ -26,6 +26,7 @@ std::shared_ptr<Piece> & Board::pieceAt(const Pos &position) {
 
 std::string Board::show() {
   std::string result;
+  result.append("X\n");
   for(int i = BOARDSIZE-1; i >= 0; i--) {
     result.append(std::to_string(i)+ " ");
     for(int j = 0; j < BOARDSIZE; j++) {
@@ -37,7 +38,7 @@ std::string Board::show() {
     }
     result.append("\n");
   }
-  result.append("  0 1 2 3 4 5 6 7\n");
+  result.append("  0 1 2 3 4 5 6 7 Y\n");
   return result;
 }
 
