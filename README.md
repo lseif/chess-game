@@ -6,7 +6,7 @@ A simple game of chess that two players can play against each other on the comma
 
 ## Installation
 To build and run the game you need cmake version 3.51 or higher and c++ 17.
-After you cloned the repository it's recommended to create a build directory where the cmake build files will be stored. In the projects root directory run:
+After you have cloned the repository it's recommended to create a build directory where the cmake build files will be stored. In the projects root directory run:
 ```bash 
 mkdir build
 ```
