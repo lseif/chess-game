@@ -26,3 +26,13 @@ cmake --build .
 A player can move a piece by inputing it's coordinates. The game will than ask him to give the coordinates of the the field he wants the piece to move to. If the move is agaisnt the traditional chess rules the Player will be asked to do a different move.
 The player with the red pieces begins. the game refers to him as white. The player with the red pieces is refered to as black.
  
+## Issues
+- Sometimes pawns cant move were they should
+- Sometimes the kingCheckException returns a wrong piece
+
+When you encounter other Issues or have feature requests please open an Issue.
+
+##TODO
+-improve unit tests, use CTests
+-show the Pieces that got taken and show how many points of material a player is up or behind
+-add GUI
