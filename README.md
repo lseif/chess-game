@@ -27,12 +27,12 @@ A player can move a piece by inputing it's coordinates. The game will than ask h
 The player with the red pieces begins. the game refers to him as white. The player with the red pieces is refered to as black.
  
 ## Issues
-- Sometimes pawns cant move were they should
-- Sometimes the kingCheckException returns a wrong piece
+- sometimes pawns can't move were they should
+- sometimes the kingCheckException returns a wrong piece
 
-When you encounter other Issues or have feature requests please open an Issue.
+When you encounter other issues or have feature requests please open an issue.
 
-##TODO
--improve unit tests, use CTests
--show the Pieces that got taken and show how many points of material a player is up or behind
--add GUI
+## TODO
+- improve unit tests, use CTests
+- show the Pieces that got taken and show how many points of material a player is up or behind
+- add GUI
