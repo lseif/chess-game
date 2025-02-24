@@ -33,6 +33,7 @@ class Board {
     std::shared_ptr<Piece>& pieceAt(const Pos& position);
     bool isEmpty(const Pos& position);
     const bool operator==(const Board& other) const;
+    void revertLastMove();
   private: 
     bool isCovered(const Pos& position, const bool& color);
     bool isEnpassantLeft(const Move& move);

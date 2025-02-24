@@ -184,6 +184,14 @@ void Board::ruledMove(const Move& move) {
   }
 }
 
+void Board::revertLastMove() {
+  if (!pastPositions.empty()) {
+    board=pastPositions.back();
+  }
+  pastPositions.pop_back();
+  pastMoves.pop_back();
+}
+
 //the moves @piece can do wihtout jumping over other pieces or taking its own pieces
 std::array<std::vector<Pos>, NUMBEROFDIRECTIONS> Board::possibleMovesWithNoPieceInWay(const Piece& piece) {
   std::array<std::vector<Pos>, NUMBEROFDIRECTIONS> result;

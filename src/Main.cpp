@@ -1,5 +1,6 @@
 #include "Tests.h"
 #include <iostream>
+#include <ostream>
 #include <stdexcept>
 
 void showPossibleMoves(std::array<std::vector<Pos>, NUMBEROFDIRECTIONS> v) {
@@ -12,6 +13,10 @@ void showPossibleMoves(std::array<std::vector<Pos>, NUMBEROFDIRECTIONS> v) {
 }
 
 void play(Board& b) {
+  bool allowTakingBack = false;
+  std::cout << "before you begin to play, do you want to allow taking back bad moves?\n Press 1 for yes or 0 for no: ";
+  std::cin >> allowTakingBack;
+  std::cout << "\n";
   std::cout << b.show();
   bool whosTurn = WHITE;
   bool end = false;
@@ -30,7 +35,7 @@ void play(Board& b) {
     std::cout << "Y:";
     std::cin >> y;
     Pos piece = Pos(x,y);
-    if(piece.x<0||piece.y>7) {
+    if(!piece.inRange(Pos(0,0), Pos(BOARDSIZE, BOARDSIZE))) {
       std::cout << "thats no valid position. Position has to be in range 0-7. \n";
       continue;
     } else if (b.isEmpty(piece)) {
@@ -49,15 +54,26 @@ void play(Board& b) {
     try {
       Move move = Move(*b.pieceAt(piece), Pos(x, y));
       b.ruledMove(move);
-      whosTurn = !whosTurn;
+      std::cout << b.show();
+      if(allowTakingBack) {
+        bool takeBack;
+        std::cout << "revert this move?\n Press 1 for yes or 0 for no: ";
+        std::cin >> takeBack;
+        if (takeBack) {
+          b.revertLastMove();
+          std::cout<< b.show();
+        } else {
+          whosTurn = !whosTurn;
+        }
+      } else {
+        whosTurn= !whosTurn;
+      }
+      
     } catch(const std::runtime_error& exception) {
       std::cout << exception.what();
       std::cout << "do something else \n";
     } 
     
-    std::cout << b.show();
-    //std::cout << "you want to end? press 1 else press 0\n";
-    //std::cin >> end;
     
   }
 }
