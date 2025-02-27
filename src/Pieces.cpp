@@ -207,14 +207,14 @@ const std::array<std::vector<Pos>, NUMBEROFDIRECTIONS> Pawn:: possibleMoves() co
         if(direction==UP||direction==UP_RIGHT||direction==UP_LEFT) {
           possibleMoves[direction].push_back(moves[direction]);
         }
-        if(position.x==1) {
+        if(direction==UP&&position.x==1) {
           possibleMoves[UP].push_back(position+Pos(2,0));//let pawns move two fields if they didnt move yet
         } 
       } else {
         if(direction==DOWN||direction==DOWN_RIGHT||direction==DOWN_LEFT) {
           possibleMoves[direction].push_back(moves[direction]);
         }
-        if (position.x==6) {
+        if (direction==DOWN&&position.x==6) {
           possibleMoves[DOWN].push_back(position+Pos(-2,0));//let pawns move two fields if they didnt move yet
         }
       }
