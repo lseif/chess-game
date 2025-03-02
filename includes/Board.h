@@ -1,5 +1,6 @@
 #include <array>
 #include <memory>
+#include <optional>
 #include <string>
 #include <Move.h>
 #include <vector>
@@ -35,7 +36,7 @@ class Board {
     const bool operator==(const Board& other) const;
     void revertLastMove();
   private: 
-    bool isCovered(const Pos& position, const bool& color);
+    std::optional<Pos> isCovered(const Pos& position, const bool& color);
     bool isEnpassantLeft(const Move& move);
     bool isEnpassantRight(const Move& move);
     std::array<std::vector<Pos>, NUMBEROFDIRECTIONS> possibleMovesWithNoPieceInWay(const Piece& piece);

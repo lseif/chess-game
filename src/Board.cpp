@@ -3,6 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <vector>
@@ -114,6 +115,7 @@ void Board::promote(Pawn& pawn) {
 //moves piece at @move.piece->position to @position if chess rules allow it
 //throws @notallowedMoveException
 void Board::ruledMove(const Move& move) {
+  const bool enemyColor = !move.getPiece()->color;
   const bool promotion=isPromotion(move);
   bool shortCastle;
   bool longCastle;
@@ -150,19 +152,12 @@ void Board::ruledMove(const Move& move) {
     throw NotAllowedMoveException(std::string("piece ").append(move.getPiece()->show()).append(" cant move to ").append(move.getPosition().show()).append("\n").c_str());
   }
  
-  for(int i= 0; i < BOARDSIZE; i++) {
-    for(int j=0; j<BOARDSIZE; j++) {
-      if(board[i][j]==nullptr){
-        continue;
-      }
-      if(board[i][j]->color==pieceAt(move.getPosition())->color) {//only check if opponent can take king of @piece color
-        continue;       
-      }
+ 
 
       for(int k = 0; k<kingPositions[pieceAt(move.getPosition())->color].size(); k++) {
-        if(!kingPositions[!board[i][j]->color].empty()) {
-          if(isCovered(kingPositions[pieceAt(move.getPosition())->color][k], board[i][j]->color)) {
-            std::cout << "king check exception \n";
+        if(!kingPositions[move.getPiece()->color].empty()) {
+          std::optional<Pos> pieceAttackingKing = isCovered(kingPositions[move.getPiece()->color][k], !move.getPiece()->color);
+          if(pieceAttackingKing.has_value()) {
             Move revert = Move(*pieceAt(move.getPosition()), move.getPiece()->position);
             unruledMove(revert);
             if(promotion) {//revert promotion
@@ -176,13 +171,12 @@ void Board::ruledMove(const Move& move) {
             
             
             
-            throw NotAllowedMoveException(("your king would be in check from piece at " + Pos(i, j).show() +"\n").c_str());
+            throw NotAllowedMoveException(("your king would be in check from piece at " + pieceAttackingKing.value().show() +"\n").c_str());
           }
         }
       }
     } 
-  }
-}
+
 
 void Board::revertLastMove() {
   if (!pastPositions.empty()) {
@@ -252,16 +246,17 @@ bool Board::isPromotion(const Move& move) {
   return false;
 }
 
-//can piece of @color move to @position
-bool Board::isCovered(const Pos& position, const bool& color) {
+//returns position of piece of @color that covers @position
+//if no piece of @color covers @position return nullopt
+std::optional<Pos> Board::isCovered(const Pos& position, const bool& color) {
   for(int i= 0; i < BOARDSIZE; i++) {
     for(int j=0; j<BOARDSIZE; j++) {
       if(board[i][j]!=nullptr&&board[i][j]->color==color&&isMovePossible(possibleMovesWithNoPieceInWay(*board[i][j]), position)) {
-        return true;
+        return Pos(i,j);
       }
     }
   }
-  return false;
+  return std::nullopt;
 }
 
 bool Board::isLongCastle(const Move& move) {

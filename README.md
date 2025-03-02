@@ -27,7 +27,7 @@ A player can move a piece by inputing it's coordinates. The game will than ask h
 The player with the red pieces begins. the game refers to him as white. The player with the red pieces is refered to as black.
  
 ## Issues
-- sometimes the kingCheckException returns a wrong piece
+There currently no known Issues.
 
 When you encounter other issues or have feature requests please open an issue.
 
