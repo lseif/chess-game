@@ -38,7 +38,6 @@ Pos inputPosition() {
   while (true) {
     int x;
     int y;
-    std::cout << "give position of piece to move \n";
     std::cout << "x:";
     std::istringstream iss(getline());
     iss >> x >> std::ws;
@@ -77,6 +76,8 @@ void play(Board& b) {
     } else {
       std::cout << "blacks Turn\n";
     }
+
+    std::cout << "give position of piece to move \n";
     Pos piece = inputPosition();
     if (b.isEmpty(piece)) {
       std::cout << "theres no piece at " << piece.show() << " \n";
@@ -86,6 +87,7 @@ void play(Board& b) {
       continue;
     }
 
+    std::cout << "where should the piece move?\n";
     Pos position = inputPosition();
     try {
       Move move = Move(*b.pieceAt(piece), position);
