@@ -115,12 +115,15 @@ void Board::promote(Pawn& pawn) {
 //moves piece at @move.piece->position to @position if chess rules allow it
 //throws @notallowedMoveException
 void Board::ruledMove(const Move& move) {
+  if (!move.getPiece()) {
+    throw NotAllowedMoveException(std::string("there is no piece\n").c_str());
+  }
   const bool enemyColor = !move.getPiece()->color;
   const bool promotion=isPromotion(move);
   bool shortCastle;
   bool longCastle;
   //check if piece can physically move to @position
-  std::shared_ptr<Piece> pieceToBeTaken;
+  std::shared_ptr<Piece> pieceToBeTaken = nullptr;
   bool allowed = false;
   for(int i = 0; i< BOARDSIZE; i++) {
     std::vector<Pos> vec = possibleMovesWithNoPieceInWay(*move.getPiece())[i];
@@ -149,7 +152,7 @@ void Board::ruledMove(const Move& move) {
     enpassantRight(*move.getPiece());
   } else {
     //placePiece(pieceAt(move.piece->position)); 
-    throw NotAllowedMoveException(std::string("piece ").append(move.getPiece()->show()).append(" cant move to ").append(move.getPosition().show()).append("\n").c_str());
+    throw NotAllowedMoveException(std::string("piece ").append(move.getPiece()->show()).append(move.getPiece()->position.show()).append(" cant move to ").append(move.getPosition().show()).append("\n").c_str());
   }
  
  
