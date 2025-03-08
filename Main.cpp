@@ -1,4 +1,4 @@
-#include "Tests.h"
+#include "Positions.h"
 #include <iostream>
 #include <ostream>
 #include <stdexcept>
@@ -117,7 +117,6 @@ void play(Board& b) {
 }
 
 int main() {
-  tests();
   Board b = startPosition();
   play(b);
  
