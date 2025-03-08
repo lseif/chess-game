@@ -23,7 +23,7 @@ cmake --build .
  ```./chess```. On Windows it`s created inside the generated Debug folder. Run it with ```start <path-to-file>/chess.exe```.
 
  ## How to play
-A player can move a piece by inputing it's coordinates. The game will than ask him to give the coordinates of the the field he wants the piece to move to. If the move is agaisnt the traditional chess rules the Player will be asked to do a different move.
+A player can move a piece by inputing it's coordinates. The game will than ask him to give the coordinates of the field he wants the piece to move to. If the move is agaisnt the traditional chess rules the Player will be asked to do a different move.
 The player with the red pieces begins. the game refers to him as white. The player with the green pieces is refered to as black.
  
 ## Issues
