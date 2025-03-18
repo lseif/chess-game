@@ -1,8 +1,20 @@
 #include "Positions.h"
+#include <cstdlib>
 #include <iostream>
 #include <ostream>
 #include <stdexcept>
 #include <sstream>
+/*#include <fcntl.h>
+#include <unistd.h>
+
+void ensureBlockingStdin() {
+  int flags = fcntl(STDIN_FILENO, F_GETFL);
+  if (flags & O_NONBLOCK) {
+      std::cerr << "Fixing non-blocking stdin..." << std::endl;
+      fcntl(STDIN_FILENO, F_SETFL, flags & ~O_NONBLOCK);
+  }
+}
+  */
 
 void showPossibleMoves(std::array<std::vector<Pos>, NUMBEROFDIRECTIONS> v) {
   for(int i = 0; i< NUMBEROFDIRECTIONS; i++) {
@@ -16,21 +28,44 @@ void showPossibleMoves(std::array<std::vector<Pos>, NUMBEROFDIRECTIONS> v) {
 std::string getline() {
   std::string str;
   std::getline(std::cin, str);
+  if(std::cin.eof()) {
+    abort();
+  }
   return str;
 }
+
 
 bool inputBool() {
   while (true) {
     bool x = false;
     std::cout << "press 1 for yes or 0 for no:\n";
     std::istringstream iss(getline());
-    iss >> x >> std::ws;
-    if(iss.fail() || !iss.eof()) {
-      std::cout << "thats no valid input \n";
-      continue;
-    } else {
-      return x;
+    if(iss.eof()) {
+      std::abort();
     }
+    if (!(iss >> x)) {
+      std::cout << "Invalid input!\n";
+      continue;
+    }
+    iss >> std::ws;
+
+
+      return x;
+  }
+}
+
+int inputInt() {
+  while (true) {
+    int x = 0;
+    std::istringstream iss(getline());
+    if (!(iss >> x)) {
+      std::cout << "Invalid input!\n";
+      continue;
+    }
+    iss >> std::ws;
+
+
+      return x;
   }
 }
 
@@ -39,20 +74,9 @@ Pos inputPosition() {
     int x;
     int y;
     std::cout << "x:";
-    std::istringstream iss(getline());
-    iss >> x >> std::ws;
-    if(iss.fail() || !iss.eof()) {
-      std::cout << "thats no valid input \n";
-      continue;
-    }
-    iss.clear();
+    x=inputInt();
     std::cout << "y:";
-    iss.str(getline());
-    iss >> y >> std::ws;
-    if(iss.fail() || !iss.eof()) {
-      std::cout << "thats no valid input \n";
-      continue;
-    }
+    y=inputInt();
     Pos position = Pos(x, y);
     if(position.inRange(Pos(0,0), Pos(BOARDSIZE, BOARDSIZE))) {
       return position;
