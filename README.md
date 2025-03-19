@@ -1,8 +1,17 @@
-## chess-game
+# chess-game
 
 A simple game of chess that two players can play against each other on the command line.
 
 ![chess-game_screenshot](https://github.com/user-attachments/assets/9731ac26-89d6-4ba5-a7b5-65c47964ea60)
+
+## Table Of Contents
+  * [Installation](#installation)
+    + [With Docker](#with-docker)
+    + [Without Docker](#without-docker)
+  * [How to play](#how-to-play)
+  * [Issues](#issues)
+  * [TODO](#todo)
+
 
 ## Installation
 
