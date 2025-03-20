@@ -16,7 +16,7 @@ A simple game of chess that two players can play against each other on the comma
 ## Installation
 
 ### With Docker
-As super user you can build the container with 
+As super user or a different user in the docker group you can build the container with 
 ```bash
 docker build -t chess-game <path-to-project-root-directory>
 ```
@@ -24,7 +24,6 @@ This might take a while. Afterwards you can run the game with
 ```bash
 docker run -it chess-game
 ```
-For this you need super user rights again.
 
 ### Without Docker
 To build and run the game without docker you need cmake version 3.1 or higher and c++ 17.
