@@ -16,7 +16,13 @@ A simple game of chess that two players can play against each other on the comma
 ## Installation
 
 ### With Docker
-As super user or a different user in the docker group you can build the container with 
+You can run the latest release with 
+```bash
+docker run -it ghcr.io/lseif/chess-game:latest
+```
+
+If you want to play with features that are pushed to the repository but not released yet, you can clone this repository and 
+as super user or a different user in the docker group you can build the container with 
 ```bash
 docker build -t chess-game <path-to-project-root-directory>
 ```
