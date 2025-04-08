@@ -1,6 +1,4 @@
 #include "Positions.h"
-#include <iostream>
-#include <ostream>
 #include <catch2/catch_test_macros.hpp>
 
 
@@ -81,24 +79,40 @@ bool test_castle() {
   Board b = castlePosition();
   Board c = castlePosition();
   try {
+    //test King moving trhough check
     b.ruledMove(Move(*b.pieceAt(Pos(0,4)), Pos(0,2)));
     return false;
   } catch (NotAllowedMoveException) {
     try {
+      //test castling when theres a piece in the way
       b.ruledMove(Move(*b.pieceAt(Pos(0,4)), Pos(0,6)));
       return false;
     } catch (NotAllowedMoveException)   {
+      //test short and long castle
       b.ruledMove(Move(*b.pieceAt(Pos(7,3)), Pos(7,0)));
       b.ruledMove(Move(*b.pieceAt(Pos(0,6)), Pos(2,5)));
       c.ruledMove(Move(*c.pieceAt(Pos(7,3)), Pos(7,0)));
       c.ruledMove(Move(*c.pieceAt(Pos(0,6)), Pos(2,5)));
 
+      Board d = b;
+      Board e = c;
+
       b.ruledMove(Move(*b.pieceAt(Pos(0,4)), Pos(0,2)));
       c.ruledMove(Move(*c.pieceAt(Pos(0,4)), Pos(0,6)));
+
+      d.unruledMove(Move(*d.pieceAt(Pos(0,4)), Pos(0,2)));
+      d.unruledMove(Move(*d.pieceAt(Pos(0,0)), Pos(0,3)));
+
+      e.unruledMove(Move(*e.pieceAt(Pos(0,4)), Pos(0,6)));
+      e.unruledMove(Move(*e.pieceAt(Pos(0,7)), Pos(0,5)));
+
+      if(b==d&&c==e) {
+        return true;
+      } else {
+        return false;
+      }
     }
-  
   }
-  return true;
 }
 
 bool test_kingCheck() {return true;}
@@ -122,14 +136,30 @@ bool test_enpassant() {
 }
 
 
-TEST_CASE( "test_moves") {
-  std::cout << "tests";
+TEST_CASE( "test moves on empty Board") {
   REQUIRE( test_movesOnEmptyBoard());
+}
+
+TEST_CASE("test placing a new piece") {
   REQUIRE( test_placeNewPiece());
+}
+
+TEST_CASE("test unruled move") {
   REQUIRE( test_unruledMove());
+}
+
+TEST_CASE("test ruled move") {
   REQUIRE( test_ruledMove());
+}
+
+TEST_CASE("test enpassant") {
   REQUIRE( test_enpassant() );
-  REQUIRE( test_kingCheck());
+}
+
+TEST_CASE("test castling") {
   REQUIRE( test_castle());
-  REQUIRE( test_pawnTwoSteps() ); 
+}
+
+TEST_CASE("test pawns moving two steps") {
+  REQUIRE( test_pawnTwoSteps());
 }
