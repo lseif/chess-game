@@ -60,6 +60,6 @@ When you encounter other issues or have feature requests please open an issue.
 
 ## TODO
 - improve unit tests
-- show the Pieces that got taken and show how many points of material a player is up or behind
+- show how many points of material a player is up or behind
 - add GUI
 - make it possible to move pieces with algebraic chess notation

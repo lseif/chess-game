@@ -20,6 +20,7 @@ class Board {
 
     std::vector<std::array<std::array<std::shared_ptr<Piece>, BOARDSIZE>, BOARDSIZE>> pastPositions;
     std::vector<Move> pastMoves;
+    std::vector<std::shared_ptr<Piece>> takenPieces;
 
     //move @piece to any @position
     void unruledMove(const Move& move);

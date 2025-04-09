@@ -117,6 +117,29 @@ bool test_castle() {
 
 bool test_kingCheck() {return true;}
 
+bool test_taking() {
+  Board b = startPosition();
+  std::vector<std::shared_ptr<Piece>> v;
+  b.ruledMove(Move(*b.pieceAt(Pos(1,4)), Pos(3,4)));
+  b.ruledMove(Move(*b.pieceAt(Pos(6,5)), Pos(4,5)));
+  v.push_back(b.pieceAt(Pos(4,5)));
+  b.ruledMove(Move(*b.pieceAt(Pos(3,4)), Pos(4,5)));
+  if(b.takenPieces==v) {
+    try {
+      b.ruledMove(Move(*b.pieceAt(Pos(0,8)), Pos(5,3)));
+      return false;
+    } catch (NotAllowedMoveException) {
+      if(b.takenPieces==v) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  } else {
+    return false;
+  }
+}
+
 bool test_enpassant() {
   Board b = checkEnpassantPosition();
   b.ruledMove(Move(*b.pieceAt(Pos(4,4)), Pos(5,3)));
@@ -162,4 +185,8 @@ TEST_CASE("test castling") {
 
 TEST_CASE("test pawns moving two steps") {
   REQUIRE( test_pawnTwoSteps());
+}
+
+TEST_CASE("test taking Pieces") {
+  REQUIRE( test_taking() );
 }
