@@ -126,7 +126,7 @@ bool test_taking() {
   b.ruledMove(Move(*b.pieceAt(Pos(3,4)), Pos(4,5)));
   if(b.takenPieces==v) {
     try {
-      b.ruledMove(Move(*b.pieceAt(Pos(0,8)), Pos(5,3)));
+      b.ruledMove(Move(*b.pieceAt(Pos(0,7)), Pos(5,3)));
       return false;
     } catch (NotAllowedMoveException) {
       if(b.takenPieces==v) {
