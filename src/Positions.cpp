@@ -1,5 +1,6 @@
 #include "Positions.h"
-Board castlePosition() {
+Board castlePosition()
+{
   std::vector<std::shared_ptr<Piece>> v;
   v.push_back(Knight(WHITE, Pos(0, 6)).clone());
   v.push_back(Rook(WHITE, Pos(0, 0)).clone());
@@ -10,7 +11,8 @@ Board castlePosition() {
   return Board(v);
 }
 
-Board kingCheckPosition() {
+Board kingCheckPosition()
+{
   std::vector<std::shared_ptr<Piece>> v;
   v.push_back(Pawn(WHITE, Pos(6, 6)).clone());
   v.push_back((Pawn(BLACK, Pos(2, 3))).clone());
@@ -18,9 +20,10 @@ Board kingCheckPosition() {
   return Board(v);
 }
 
-Board startPosition() {
+Board startPosition()
+{
   std::vector<std::shared_ptr<Piece>> v;
-  for(int i = 0; i< BOARDSIZE; i++) {
+  for (int i = 0; i < BOARDSIZE; i++) {
     v.push_back(Pawn(WHITE, Pos(1, i)).clone());
     v.push_back(Pawn(BLACK, Pos(6, i)).clone());
   }
@@ -47,14 +50,15 @@ Board startPosition() {
 
   v.push_back(Queen(BLACK, Pos(7, 3)).clone());
   v.push_back(Queen(WHITE, Pos(0, 3)).clone());
-  
+
   return Board(v);
 }
 
-Board checkEnpassantPosition() {
+Board checkEnpassantPosition()
+{
   Board b = startPosition();
-  b.unruledMove(Move(*b.pieceAt(Pos(1,4)), Pos(4,4)));
-  b.ruledMove(Move(*b.pieceAt(Pos(6, 3)), Pos(4,3)));
+  b.unruledMove(Move(*b.pieceAt(Pos(1, 4)), Pos(4, 4)));
+  b.ruledMove(Move(*b.pieceAt(Pos(6, 3)), Pos(4, 3)));
 
   return b;
 }

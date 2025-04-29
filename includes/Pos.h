@@ -1,7 +1,7 @@
 #include <string>
 #ifndef POS_H
 #define POS_H
-struct Pos {//getter and setter
+struct Pos { //getter and setter
   Pos(const int& x, const int& y);
   Pos();
   int x; //up

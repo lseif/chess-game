@@ -2,8 +2,8 @@
 #include <cstdlib>
 #include <iostream>
 #include <ostream>
-#include <stdexcept>
 #include <sstream>
+#include <stdexcept>
 /*#include <fcntl.h>
 #include <unistd.h>
 
@@ -16,31 +16,32 @@ void ensureBlockingStdin() {
 }
   */
 
-void showPossibleMoves(std::array<std::vector<Pos>, NUMBEROFDIRECTIONS> v) {
-  for(int i = 0; i< NUMBEROFDIRECTIONS; i++) {
+void showPossibleMoves(std::array<std::vector<Pos>, NUMBEROFDIRECTIONS> v)
+{
+  for (int i = 0; i < NUMBEROFDIRECTIONS; i++) {
     for (Pos pair : v[i]) {
-    std::cout<<i <<": " << pair.show() << "\n";
+      std::cout << i << ": " << pair.show() << "\n";
+    }
   }
-  }
-  
 }
 
-std::string getline() {
+std::string getline()
+{
   std::string str;
   std::getline(std::cin, str);
-  if(std::cin.eof()) {
+  if (std::cin.eof()) {
     abort();
   }
   return str;
 }
 
-
-bool inputBool() {
+bool inputBool()
+{
   while (true) {
     bool x = false;
     std::cout << "press 1 for yes or 0 for no:\n";
     std::istringstream iss(getline());
-    if(iss.eof()) {
+    if (iss.eof()) {
       std::abort();
     }
     if (!(iss >> x)) {
@@ -49,12 +50,12 @@ bool inputBool() {
     }
     iss >> std::ws;
 
-
-      return x;
+    return x;
   }
 }
 
-int inputInt() {
+int inputInt()
+{
   while (true) {
     int x = 0;
     std::istringstream iss(getline());
@@ -64,38 +65,40 @@ int inputInt() {
     }
     iss >> std::ws;
 
-
-      return x;
+    return x;
   }
 }
 
-Pos inputPosition() {
+Pos inputPosition()
+{
   while (true) {
     int x;
     int y;
     std::cout << "x:";
-    x=inputInt();
+    x = inputInt();
     std::cout << "y:";
-    y=inputInt();
+    y = inputInt();
     Pos position = Pos(x, y);
-    if(position.inRange(Pos(0,0), Pos(BOARDSIZE, BOARDSIZE))) {
+    if (position.inRange(Pos(0, 0), Pos(BOARDSIZE, BOARDSIZE))) {
       return position;
     } else {
       std::cout << "thats no valid position. Position has to be in range 0-7. \n";
-      continue;;
+      continue;
+      ;
     }
   }
 }
 
-void play(Board& b) {
+void play(Board& b)
+{
   std::cout << "before you begin to play, do you want to allow taking back bad moves?\n";
   bool allowTakingBack = inputBool();
   std::cout << "\n";
   std::cout << b.show();
   bool whosTurn = WHITE;
   bool end = false;
-  while(!end) {
-    if(whosTurn==WHITE) {
+  while (!end) {
+    if (whosTurn == WHITE) {
       std::cout << "whites Turn\n";
     } else {
       std::cout << "blacks Turn\n";
@@ -106,7 +109,7 @@ void play(Board& b) {
     if (b.isEmpty(piece)) {
       std::cout << "theres no piece at " << piece.show() << " \n";
       continue;
-    } else if (b.pieceAt(piece)->color!=whosTurn) {
+    } else if (b.pieceAt(piece)->color != whosTurn) {
       std::cout << "thats your opponents piece\n";
       continue;
     }
@@ -117,34 +120,31 @@ void play(Board& b) {
       Move move = Move(*b.pieceAt(piece), position);
       b.ruledMove(move);
       std::cout << b.show();
-      if(allowTakingBack) {
+      if (allowTakingBack) {
         bool takeBack;
         std::cout << "revert this move?\n";
         takeBack = inputBool();
         if (takeBack) {
           b.revertLastMove();
-          std::cout<< b.show();
+          std::cout << b.show();
         } else {
           whosTurn = !whosTurn;
         }
       } else {
-        whosTurn= !whosTurn;
+        whosTurn = !whosTurn;
       }
-      
-    } catch(const std::runtime_error& exception) {
+
+    } catch (const std::runtime_error& exception) {
       std::cout << exception.what();
       std::cout << "do something else \n";
-    } 
-    
-    
+    }
   }
 }
 
-int main() {
+int main()
+{
   Board b = startPosition();
   play(b);
- 
+
   return 0;
 }
-
-

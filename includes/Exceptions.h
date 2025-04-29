@@ -1,9 +1,9 @@
-#include <stdexcept>
 #include "Pos.h"
+#include <stdexcept>
 
 class NotAllowedMoveException : public std::runtime_error {
   public:
-  const char * massage;
+  const char* massage;
   NotAllowedMoveException(const char* massage);
-  virtual const char * what();
+  virtual const char* what();
 };
